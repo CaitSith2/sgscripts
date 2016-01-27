@@ -7,11 +7,7 @@
 // @grant       none
 // ==/UserScript==
 
-var appId = [];
-var subId = [];
 var genre = [];
-
-
 
 function _addTags(uri, key) {
   var item = $('h2.giveaway__heading a[href="'+uri+'"]').parent();
