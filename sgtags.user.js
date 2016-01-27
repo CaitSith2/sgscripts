@@ -26,14 +26,12 @@ $('a.giveaway__icon').each(function(i, value) {
   var reg = /(?:\/(app)\/([0-9]+)\/)|(?:(sub)\/([0-9]+)\/)/g;
   var data = reg.exec(link);
   if(data[1] === 'app') {
-    setTimeout(function() {
-      var appURI = 'http://store.steampowered.com/api/appdetails?cc=us&l=english&appids=' + data[2];
+      var appURI = 'http://h2492956.stratoserver.net:8080/SGProxy/proxy?uri=app/' + data[2];
       $.ajax(appURI, {
-        async: false
+        async: true
       }).done(function(context) {
         genre['app/'+data[2]] = context[data[2]].data.genres;
         _addTags(value, 'app/'+data[2]);
       });
-    }, i*300);
   } 
 });
