@@ -1,0 +1,2 @@
+# sgscripts
+Userscripts for Steamgifts
