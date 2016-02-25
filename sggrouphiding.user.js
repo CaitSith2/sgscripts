@@ -11,7 +11,7 @@
 'use strict';
 
 $('div.giveaway__row-outer-wrap').each(function(ga) {
-	var storeURI = ga.find('a.giveaway__icon').attr('href');
-	var gameName = ga.find('a.giveaway__heading__name').val();
+	var storeURI = $(ga).find('a.giveaway__icon').attr('href');
+	var gameName = $(ga).find('a.giveaway__heading__name').val();
 	console.log(gameName);
 });
