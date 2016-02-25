@@ -8,6 +8,7 @@
 // ==/UserScript==
 
 var genre = [];
+var PROXY_URL = 'http://proxy.parallel-bits.com/proxy';
 
 function _addTags(uri, key) {
   var item = $('h2.giveaway__heading a[href="'+uri+'"]').parent();
@@ -22,7 +23,7 @@ $('a.giveaway__icon').each(function(i, value) {
   var reg = /(?:\/(app)\/([0-9]+)\/)|(?:(sub)\/([0-9]+)\/)/g;
   var data = reg.exec(link);
   if(data[1] === 'app') {
-      var appURI = 'http://parallel-bits.com/SGProxy/proxy?uri=app/' + data[2];
+      var appURI = PROXY_URL + '?uri=app/' + data[2];
       $.ajax(appURI, {
         async: true
       }).done(function(context) {
