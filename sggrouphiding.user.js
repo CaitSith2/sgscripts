@@ -27,6 +27,9 @@ function _hideGame(context, ga, reason, gamename) {
 $('div.giveaway__row-outer-wrap').each(function(i,ga) {
 	var storeURI = $(ga).find('a.giveaway__icon').attr('href');
 	var gameName = $(ga).find('a.giveaway__heading__name').text();
+	if(gameName.endsWith('...')) {
+		gameName = gameName.substring(0, gameName.length - 3);
+	}
     
     var url = GAME_LIST_URL + '?q=' + gameName;
     $.ajax(url, {
