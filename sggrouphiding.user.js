@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Grouppage Blocker
 // @namespace    com.parallelbits
-// @version      1.01
+// @version      1.03
 // @description  Remove games from group page you already have or you blocked
 // @author       Daerphen
 // @match        http://www.steamgifts.com/group/*
@@ -13,19 +13,17 @@
 var GAME_LIST_URL = 'http://www.steamgifts.com/account/steam/games/search';
 var BLOCK_LIST_URL = 'http://www.steamgifts.com/account/settings/giveaways/filters';
 
-function _hideGame(context, ga, reason, gamename) {
+function _hideGame(context, ga) {
     var hit = 0;
     $(context).find('div.table__rows p.table__column__heading').each(function(i, value) {
         hit++;
     });
     if(hit > 0) {
-        console.log(gamename + ' is removed because: "' + reason + '"');
         $(ga).hide();
     }
 }
 
 $('div.giveaway__row-outer-wrap').each(function(i,ga) {
-	var storeURI = $(ga).find('a.giveaway__icon').attr('href');
 	var gameName = $(ga).find('a.giveaway__heading__name').text();
 	if(gameName.endsWith('...')) {
 		gameName = gameName.substring(0, gameName.length - 3);
@@ -35,12 +33,12 @@ $('div.giveaway__row-outer-wrap').each(function(i,ga) {
     $.ajax(url, {
         async: true
     }).done(function(context) {
-        _hideGame(context, ga, 'Already Exists on Account', gameName);
+        _hideGame(context, ga);
     });
     url = BLOCK_LIST_URL + '?q=' + gameName;
     $.ajax(url, {
         async: true
     }).done(function(context) {
-        _hideGame(context, ga, 'Is on Ignorelist', gameName);
+        _hideGame(context, ga);
     });
 });

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Blocked Games
 // @namespace    com.parallelbits
-// @version      0.11
+// @version      1.01
 // @description  Notify within a giveaway if you blocked it
 // @author       Daerphen
 // @match        http://www.steamgifts.com/giveaway/*
