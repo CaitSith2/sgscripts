@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.02
+// @version     1.03
 // @grant       none
 // ==/UserScript==
 
@@ -30,13 +30,13 @@ $('a.giveaway__icon').each(function(i, value) {
 			genre['app/' + data[2]] = context.genres;
 			_addTags(value, 'app/' + data[2]);
 		});
-	} else if (data[1] === 'sub') {
-		var subURI = PROXY_URL + '?uri=sub/' + data[2];
+	} else if (data[3] === 'sub') {
+		var subURI = PROXY_URL + '?uri=sub/' + data[4];
 		$.ajax(subURI, {
 			async: true
 		}).done(function(context) {
-			genre['sub/' + data[2]] = context.genres;
-			_addTags(value, 'sub/' + data[2]);
+			genre['sub/' + data[4]] = context.genres;
+			_addTags(value, 'sub/' + data[4]);
 		});
 	}
 });
