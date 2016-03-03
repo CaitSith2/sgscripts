@@ -22,4 +22,5 @@ The script checks your filtered giveaway list.
 ## sggrouphiding.user.js
 I often browse the group pages of my groups I am in. But what I don't want to see there are giveaways for games I already have or I don't want to enter anyways. The script removes all giveaways that exist in your account or are on your blocking list
 
-
+## sggroupidentifier.user.js
+Shows the groups eligable for the giveaway in giveaway list. You have be able to visit the giveaway page to see the information.
