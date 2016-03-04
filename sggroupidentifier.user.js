@@ -10,14 +10,20 @@
 /* jshint -W097 */
 'use strict';
 
+let limit = 10;
+
 function _showGroups(context, item) {
     let names = [];
     $(context).find('a.table__column__heading').each(function(i, g) {
         names.push({"link": $(g).attr('href'), "name": $(g).text()});
     });
     let res = '';
+	let i = 0;
     names.forEach(function(n) {
-        res += '<a class="giveaway__column--group" href="' + n.link + '">' + n.name + '</a>';
+		if(i < limit) {
+			res += '<a class="giveaway__column--group" href="' + n.link + '">' + n.name + '</a>';
+		}
+        i++;
     });
     $(item).append('<div class="giveaway__columns">'+res+'</div>');
 }
