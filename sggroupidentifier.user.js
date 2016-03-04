@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG GroupIdentifier
 // @namespace    com.parallelbits
-// @version      1.0
+// @version      1.01
 // @description  Shows group list in front page
 // @author       Daerphen
 // @match        http://www.steamgifts.com/*
