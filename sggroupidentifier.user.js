@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG GroupIdentifier
 // @namespace    com.parallelbits
-// @version      1.01
+// @version      1.02
 // @description  Shows group list in front page
 // @author       Daerphen
 // @match        http://www.steamgifts.com/*
@@ -10,7 +10,7 @@
 /* jshint -W097 */
 'use strict';
 
-let limit = 10;
+let limit = 8;
 
 function _showGroups(context, item) {
     let names = [];
@@ -18,14 +18,17 @@ function _showGroups(context, item) {
         names.push({"link": $(g).attr('href'), "name": $(g).text()});
     });
     let res = '';
-	let i = 0;
+	let i = 1;
     names.forEach(function(n) {
-		if(i < limit) {
-			res += '<a class="giveaway__column--group" href="' + n.link + '">' + n.name + '</a>';
+        res += '<a class="giveaway__column--group" href="' + n.link + '">' + n.name + '</a>';
+		if(i%limit === 0) {
+			$(item).append('<div class="giveaway__row-inner-wrap"><div class="giveaway__summary"><div class="giveaway__columns">'+res+'</div></div></div>');
+            res = '';
 		}
         i++;
     });
-    $(item).append('<div class="giveaway__columns">'+res+'</div>');
+    $(item).append('<div class="giveaway__row-inner-wrap"><div class="giveaway__summary"><div class="giveaway__columns">'+res+'</div></div></div>');
+    
 }
 
 $('div.giveaway__row-outer-wrap').each(function(i, value) {
