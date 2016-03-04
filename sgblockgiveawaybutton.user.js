@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Block Giveaway Button
 // @namespace    com.parallelbits
-// @version      1.01
+// @version      1.02
 // @description  Add a Button to Giveawaypage to block the game
 // @author       Daerphen
 // @match        http://www.steamgifts.com/giveaway/*
@@ -10,7 +10,7 @@
 /* jshint -W097 */
 'use strict';
 
-var name = $('div.featured__heading__medium').text();
+var name = $('title').text();
 var uri = $('a.global__image-outer-wrap--game-large').attr('href');
 var XSRF = null;
 var popup = null;
