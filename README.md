@@ -24,3 +24,6 @@ I often browse the group pages of my groups I am in. But what I don't want to se
 
 ## sggroupidentifier.user.js
 Shows the groups eligable for the giveaway in giveaway list. You have be able to visit the giveaway page to see the information.
+
+## sgblockgiveawaybutton.user.js
+This is the script you were waiting for. Hide a game from within its giveaway page.
