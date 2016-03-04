@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Blocked Games
 // @namespace    com.parallelbits
-// @version      1.01
+// @version      1.02
 // @description  Notify within a giveaway if you blocked it
 // @author       Daerphen
 // @match        http://www.steamgifts.com/giveaway/*
@@ -12,10 +12,12 @@
 
 var SG_FILTER_PATH = 'http://www.steamgifts.com/account/settings/giveaways/filters/search';
 
-function _blockGame(context) {
+function _blockGame(context, storeuri) {
     var hit = 0;
-    $(context).find('div.table__rows p.table__column__heading').each(function(i, value) {
-        hit++;
+    $(context).find('div.table__rows p a.table__column__secondary-link').each(function(i, value) {
+        if($(value).attr('href') === storeuri) {
+            hit++;
+        }
     });
     if(hit > 0) {
         var item = $('div.sidebar__entry-insert')
@@ -26,6 +28,7 @@ function _blockGame(context) {
 }
 
 var name = $('div.featured__heading__medium').text();
+var uri = $('a.global__image-outer-wrap--game-large').attr('href');
 
 var page = SG_FILTER_PATH + '?q=';
 name = name.replace(/ /g, "%20");
@@ -33,5 +36,5 @@ var uri = page + name;
 $.ajax(uri, {
   async: true
 }).done(function(context) {
-    _blockGame(context);
+    _blockGame(context, uri);
 });
