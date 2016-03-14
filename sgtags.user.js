@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.03
+// @version     1.04
 // @grant       none
 // ==/UserScript==
 
