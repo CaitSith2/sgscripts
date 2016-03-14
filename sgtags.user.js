@@ -3,9 +3,10 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.04
+// @version     1.05
 // @grant       none
 // ==/UserScript==
+'use strict';
 
 var genre = [];
 var PROXY_URL = 'http://proxy.parallel-bits.com/proxy';
