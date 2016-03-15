@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.05
+// @version     1.06
 // @grant       none
 // ==/UserScript==
 'use strict';
@@ -40,7 +40,7 @@ $('a.giveaway__icon').each(function(i, value) {
 		$.ajax(subURI, {
 			async: true
 		}).done(function(context) {
-			genre['sub/' + data[4]] = context.genres;
+			genre['sub/' + data[4]] = context.tags;
 			_addTags(value, 'sub/' + data[4]);
 		});
 	}
