@@ -9,7 +9,7 @@
 'use strict';
 
 var genre = [];
-var PROXY_URL = 'http://localhost:8080/SGProxy/proxy';//'http://proxy.parallel-bits.com/proxy';
+var PROXY_URL = 'http://proxy.parallel-bits.com/proxy';
 let popup = $('<div class="gameinfo">');
 $('body').append(popup);
 
