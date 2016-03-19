@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.07
+// @version     1.09
 // @grant       none
 // ==/UserScript==
 'use strict';
@@ -37,10 +37,11 @@ $('.widget-container:nth-child(1) a.giveaway__icon').each(function(index, storeL
 function _positionAtElement(popup, element) {
     let pos = element.position();
     let width = element.outerWidth();
+    let height = element.outerHeight();
     popup.css({
         position: "absolute",
-        top: pos.top + "px",
-        left: (pos.left + width) + "px"
+        top: (pos.top + height + 10) + "px",
+        left: (pos.left + width + 10) + "px"
     });
 }
 
