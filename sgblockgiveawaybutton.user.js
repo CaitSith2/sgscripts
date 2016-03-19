@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Block Giveaway Button
 // @namespace    com.parallelbits
-// @version      1.03
+// @version      1.04
 // @description  Add a Button to Giveawaypage to block the game
 // @author       Daerphen
 // @match        http://www.steamgifts.com/giveaway/*
@@ -47,23 +47,37 @@ function _setXSRF(context) {
 }
 
 function _setGameId(context) {
-    $(context).find('div.giveaway__summary a.giveaway__icon').each(function(index, value) {
+    let data = JSON.parse(context);
+    $(data.html).find('a.table__column__secondary-link').each(function(index, value) {
         if($(value).attr('href') === uri) {
-            game_id = $(value).parent().find('i.giveaway__hide').attr('data-game-id');
+            game_id = $(value).parent().parent().parent().parent().attr('data-autocomplete-id');
         }
     });
 }
 
-var popupURL = 'http://www.steamgifts.com';
+$.ajaxSetup({
+  xhrFields: {
+    withCredentials: true
+  }
+});
+
+let popupURL = 'http://www.steamgifts.com';
 $.ajax(popupURL, {
   async: true
 }).done(function(context) {
     _setXSRF(context);
 });
 
-var gameFetchURL = 'http://www.steamgifts.com/giveaways/search?q=' + name.replace(/ /g, '+');
+let gameFetchURL = 'http://www.steamgifts.com/ajax.php';
+let searchData = {
+    'do': 'autocomplete_game',
+    'search_query': name.replace(/ /g, '+'),
+    'page_number': 1
+}
 $.ajax(gameFetchURL, {
-    async: true
+    async: true,
+    method: 'post',
+    data: searchData
 }).done(function(context) {
     _setGameId(context);
 });
