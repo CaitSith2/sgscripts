@@ -27,3 +27,6 @@ Shows the groups eligable for the giveaway in giveaway list. You have be able to
 
 ## sgblockgiveawaybutton.user.js
 This is the script you were waiting for. Hide a game from within its giveaway page.
+
+## sgbundlemarker.user.js
+Adds a '*' before a game while creating a giveaway if the game is on the bundle list
