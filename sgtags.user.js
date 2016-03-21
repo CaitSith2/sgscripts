@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.10
+// @version     1.11
 // @grant       none
 // ==/UserScript==
 'use strict';
@@ -138,13 +138,13 @@ function initializeCache() {
 
 function cache(key, val) {
     if(typeof val === 'undefined' || val === null) {
-        return JSON.parse(localStorage.getItem('tag_cache')).key;
+        return JSON.parse(localStorage.getItem('tag_cache'))[key];
     }
     let json = JSON.parse(localStorage.getItem('tag_cache'));
-    json.key = val;
+    json[key] = val;
     localStorage.setItem('tag_cache', JSON.stringify(json));
 }
 
 function isCached(key) {
-    return JSON.parse(localStorage.getItem('tag_cache')).key !== null;
+    return JSON.parse(localStorage.getItem('tag_cache'))[key] !== null;
 }
