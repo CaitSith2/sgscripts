@@ -8,7 +8,6 @@
 // ==/UserScript==
 'use strict';
 
-var genre = [];
 var PROXY_URL = 'http://proxy.parallel-bits.com/proxy';
 let popup = $('<div class="gameinfo">');
 $('body').append(popup);
@@ -23,11 +22,9 @@ _addStyle('.infotext{text-shadow:none;line-height:25px}');
 $('.widget-container:nth-child(1) a.giveaway__icon').each(function(index, storeLink) {
     let storeUri = $(storeLink).attr('href');
     $(storeLink).parent().mouseenter(function(e) {
-        console.log("entered");
         _showGameinfo(storeUri, $(storeLink));
     });
     $(storeLink).parent().mouseleave(function(e) {
-        console.log("left");
         popup.hide();
     });
     
@@ -56,51 +53,98 @@ function _addStyle(s) {
 }
 
 function _gatherGameinfo(uri) {
-    var reg = /(app|sub)\/(\d+)/g;
-    var data = reg.exec(uri);
-    var ajaxURI = PROXY_URL + '?uri=' + data[1] + '/' + data[2];
-    $.ajax(ajaxURI, {
-        async: true
-    }).done(function(context) {
-        genre[data[1] + '/' + data[2]] = context;
-    });
+    let key = _getKeyFromURI(uri);
+    if(!isCached(key)) {
+        var ajaxURI = PROXY_URL + '?uri=' + key;
+        $.ajax(ajaxURI, {
+            async: true
+        }).done(function(context) {
+            console.log(context);
+            genre[key] = context;
+            cache(key, context);
+        });
+    }
+    
 }
 
 function _showGameinfo(uri, loc) {
-    var reg = /(app|sub)\/(\d+)/g;
-    var data = reg.exec(uri);
-    _openDialog(loc, data[1] + '/' + data[2]);
+    _openDialog(loc, _getKeyFromURI(uri));
+}
+
+function _getKeyFromURI(uri) {
+    let reg = /(app|sub)\/(\d+)/g;
+    let data = reg.exec(uri);
+    let key = data[1] + '/' + data[2];
+    return key;
 }
 
 function _openDialog(loc, key) {
     popup.empty();
     let limit = 5;
     popup.append('<span class="label infotext">User Tags:</span>');
-    genre[key].tags.forEach(function(value) {
-        if(limit > 0) {
-            limit--;
-            popup.append('<span class="gametag infotext">' + value + '</span>');
+    let data = cache(key);
+    if(data !== null) {
+        if(data.tags) {
+            data.tags.forEach(function(value, index) {
+                if(index < limit) {
+                    popup.append('<span class="gametag infotext">' + value + '</span>');
+                }
+            });
         }
-    });
-
-    popup.append('<br/><span class="label infotext">Features:</span>');
-    genre[key].features.forEach(function(value) {
-        popup.append('<span class="gametag infotext"><img width="20" src="' + value + '"</></span>');
-    });
-
-    limit = 5;
-    popup.append('<br/><span class="label infotext">Genres:</span>');
-    genre[key].genres.forEach(function(value) {
-        if(limit > 0) {
-            limit--;
-            popup.append('<span class="gametag infotext">' + value + '</span>');
+        
+        if(data.tags) {
+            data.tags.forEach(function(value, index) {
+                if(index < limit) {
+                    popup.append('<span class="gametag infotext">' + value + '</span>');
+                }
+            });
         }
-    });
-
-    if(genre[key].metacritic !== null && typeof genre[key].metacritic !== 'undefined') {
-        popup.append('<br/><span class="label infotext">Metacritic:</span>');
-        popup.append('<span class="rating infotext">' + genre[key].metacritic + '</span>');
+        
+        popup.append('<br/><span class="label infotext">Features:</span>');
+        if(data.features) {
+            data.features.forEach(function(value) {
+                popup.append('<span class="gametag infotext"><img width="20" src="' + value + '"</></span>');
+            });
+        }
+        
+        limit = 5;
+        popup.append('<br/><span class="label infotext">Genres:</span>');
+        if(data.genres) {
+            data.genres.forEach(function(value, index) {
+                if(index < limit) {
+                    popup.append('<span class="gametag infotext">' + value + '</span>');
+                }
+            });
+        }
+        
+        if(data.metacritic !== null && typeof data.metacritic !== 'undefined') {
+            popup.append('<br/><span class="label infotext">Metacritic:</span>');
+            popup.append('<span class="rating infotext">' + data.metacritic + '</span>');
+        }
     }
+   
     _positionAtElement(popup, loc);
     popup.show();
+}
+
+initializeCache();
+
+function initializeCache() {
+    if(localStorage.getItem('tag_cache') === null) {
+        console.log("no cache found");
+        localStorage.setItem('tag_cache',JSON.stringify({}));
+    }
+}
+
+function cache(key, val) {
+    if(typeof val === 'undefined' || val === null) {
+        return JSON.parse(localStorage.getItem('tag_cache')).key;
+    }
+    let json = JSON.parse(localStorage.getItem('tag_cache'));
+    json.key = val;
+    localStorage.setItem('tag_cache', JSON.stringify(json));
+}
+
+function isCached(key) {
+    return JSON.parse(localStorage.getItem('tag_cache')).key !== null;
 }
