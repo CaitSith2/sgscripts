@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.11
+// @version     1.12
 // @grant       none
 // ==/UserScript==
 'use strict';
@@ -27,7 +27,7 @@ $('.widget-container:nth-child(1) a.giveaway__icon').each(function(index, storeL
     $(storeLink).parent().mouseleave(function(e) {
         popup.hide();
     });
-    
+    console.log("lookup gameinfo");
     _gatherGameinfo(storeUri);
 });
 
@@ -60,7 +60,6 @@ function _gatherGameinfo(uri) {
             async: true
         }).done(function(context) {
             console.log(context);
-            genre[key] = context;
             cache(key, context);
         });
     }
@@ -84,14 +83,6 @@ function _openDialog(loc, key) {
     popup.append('<span class="label infotext">User Tags:</span>');
     let data = cache(key);
     if(data !== null) {
-        if(data.tags) {
-            data.tags.forEach(function(value, index) {
-                if(index < limit) {
-                    popup.append('<span class="gametag infotext">' + value + '</span>');
-                }
-            });
-        }
-        
         if(data.tags) {
             data.tags.forEach(function(value, index) {
                 if(index < limit) {
@@ -140,11 +131,15 @@ function cache(key, val) {
     if(typeof val === 'undefined' || val === null) {
         return JSON.parse(localStorage.getItem('tag_cache'))[key];
     }
+    console.log("store " + val + " with key " + key);
     let json = JSON.parse(localStorage.getItem('tag_cache'));
     json[key] = val;
     localStorage.setItem('tag_cache', JSON.stringify(json));
 }
 
 function isCached(key) {
-    return JSON.parse(localStorage.getItem('tag_cache'))[key] !== null;
+    if(localStorage.getItem('tag_cache') !== null) {
+        return typeof JSON.parse(localStorage.getItem('tag_cache'))[key] !== 'undefined';
+    }
+    return false;
 }
