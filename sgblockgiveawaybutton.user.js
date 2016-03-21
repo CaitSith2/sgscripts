@@ -61,7 +61,8 @@ $.ajax(popupURL, {
     _setXSRF(context);
 });
 
-var gameFetchURL = 'http://www.steamgifts.com/giveaways/search?q=' + name.replace(/ /g, '+');
+var gameFetchURL = 'http://www.steamgifts.com/giveaways/search?q=' + name.replace(/ /g, '+').replace(/\.\.\./g, '');
+console.log("search game_id here: " + gameFetchURL);
 $.ajax(gameFetchURL, {
     async: true
 }).done(function(context) {
