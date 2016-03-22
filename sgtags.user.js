@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.12
+// @version     1.13
 // @grant       none
 // ==/UserScript==
 'use strict';
@@ -31,6 +31,21 @@ $('.widget-container:nth-child(1) a.giveaway__icon').each(function(index, storeL
     _gatherGameinfo(storeUri);
 });
 
+$('.featured__inner-wrap').each(function(index, ga) {
+    let storeUri = $(ga).find('a.global__image-outer-wrap--game-large').attr('href');
+    if(typeof storeUri !== 'undefined') {
+        _gatherGameinfo(storeUri, _showFeaturedInfo);
+    }
+});
+
+function _showFeaturedInfo(key) {
+    $('.featured__inner-wrap .featured__summary').each(function(index, ga) {
+        let info = $('<div>');
+        _createContent(info, key, 10);
+        $(this).append(info);
+    });
+}
+
 function _positionAtElement(popup, element) {
     let pos = element.position();
     let width = element.outerWidth();
@@ -52,18 +67,21 @@ function _addStyle(s) {
     }
 }
 
-function _gatherGameinfo(uri) {
+function _gatherGameinfo(uri, callback) {
     let key = _getKeyFromURI(uri);
     if(!isCached(key)) {
         var ajaxURI = PROXY_URL + '?uri=' + key;
         $.ajax(ajaxURI, {
             async: true
         }).done(function(context) {
-            console.log(context);
             cache(key, context);
+            if(typeof callback !== 'undefined') {
+                callback(key);
+            }
         });
+    } else if(typeof callback !== 'undefined') {
+        callback(key);
     }
-    
 }
 
 function _showGameinfo(uri, loc) {
@@ -79,43 +97,45 @@ function _getKeyFromURI(uri) {
 
 function _openDialog(loc, key) {
     popup.empty();
-    let limit = 5;
-    popup.append('<span class="label infotext">User Tags:</span>');
+    _createContent(popup, key, 5);
+    _positionAtElement(popup, loc);
+    popup.show();
+}
+
+function _createContent(block, key, limit) {
+    block.append('<span class="label infotext">User Tags:</span>');
     let data = cache(key);
     if(data !== null) {
         if(data.tags) {
             data.tags.forEach(function(value, index) {
                 if(index < limit) {
-                    popup.append('<span class="gametag infotext">' + value + '</span>');
+                    block.append('<span class="gametag infotext">' + value + '</span>');
                 }
             });
         }
         
-        popup.append('<br/><span class="label infotext">Features:</span>');
+        block.append('<br/><span class="label infotext">Features:</span>');
         if(data.features) {
             data.features.forEach(function(value) {
-                popup.append('<span class="gametag infotext"><img width="20" src="' + value + '"</></span>');
+                block.append('<span class="gametag infotext"><img width="20" src="' + value + '"</></span>');
             });
         }
         
         limit = 5;
-        popup.append('<br/><span class="label infotext">Genres:</span>');
+        block.append('<br/><span class="label infotext">Genres:</span>');
         if(data.genres) {
             data.genres.forEach(function(value, index) {
                 if(index < limit) {
-                    popup.append('<span class="gametag infotext">' + value + '</span>');
+                    block.append('<span class="gametag infotext">' + value + '</span>');
                 }
             });
         }
         
         if(data.metacritic !== null && typeof data.metacritic !== 'undefined') {
-            popup.append('<br/><span class="label infotext">Metacritic:</span>');
-            popup.append('<span class="rating infotext">' + data.metacritic + '</span>');
+            block.append('<br/><span class="label infotext">Metacritic:</span>');
+            block.append('<span class="rating infotext">' + data.metacritic + '</span>');
         }
     }
-   
-    _positionAtElement(popup, loc);
-    popup.show();
 }
 
 initializeCache();
