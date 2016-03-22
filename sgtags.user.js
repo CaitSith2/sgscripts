@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.13
+// @version     1.14
 // @grant       none
 // ==/UserScript==
 'use strict';
@@ -27,7 +27,6 @@ $('.widget-container:nth-child(1) a.giveaway__icon').each(function(index, storeL
     $(storeLink).parent().mouseleave(function(e) {
         popup.hide();
     });
-    console.log("lookup gameinfo");
     _gatherGameinfo(storeUri);
 });
 
@@ -142,7 +141,6 @@ initializeCache();
 
 function initializeCache() {
     if(localStorage.getItem('tag_cache') === null) {
-        console.log("no cache found");
         localStorage.setItem('tag_cache',JSON.stringify({}));
     }
 }
@@ -151,7 +149,6 @@ function cache(key, val) {
     if(typeof val === 'undefined' || val === null) {
         return JSON.parse(localStorage.getItem('tag_cache'))[key];
     }
-    console.log("store " + val + " with key " + key);
     let json = JSON.parse(localStorage.getItem('tag_cache'));
     json[key] = val;
     localStorage.setItem('tag_cache', JSON.stringify(json));
