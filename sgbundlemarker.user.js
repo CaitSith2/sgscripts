@@ -2,15 +2,15 @@
 // @name        SG BundleMarker
 // @namespace   com.parallelbits
 // @description Marks Bundlegames when you create a giveaway
-// @include     http://www.steamgifts.com/giveaways/new
-// @version     1.0
+// @include     *://www.steamgifts.com/giveaways/new
+// @version     1.01
 // @grant       none
 // ==/UserScript==
 
 let finalEvent = null;
 let timer = null;
 let unlockTimer = null;
-let BUNDLE_LIST = 'http://www.steamgifts.com/bundle-games/search?q=';
+let BUNDLE_LIST = 'https://www.steamgifts.com/bundle-games/search?q=';
 let lock = false;
 
 $('.js__autocomplete-data').bind('DOMNodeInserted DOMSubtreeModified DOMNodeRemoved', function(event) {

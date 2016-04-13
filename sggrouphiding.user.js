@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Grouppage Blocker
 // @namespace    com.parallelbits
-// @version      1.04
+// @version      1.05
 // @description  Remove games from group page you already have or you blocked
 // @author       Daerphen
 // @match        http://www.steamgifts.com/group/*
@@ -10,8 +10,8 @@
 /* jshint -W097 */
 'use strict';
 
-var GAME_LIST_URL = 'http://www.steamgifts.com/account/steam/games/search';
-var BLOCK_LIST_URL = 'http://www.steamgifts.com/account/settings/giveaways/filters';
+var GAME_LIST_URL = 'https://www.steamgifts.com/account/steam/games/search';
+var BLOCK_LIST_URL = 'https://www.steamgifts.com/account/settings/giveaways/filters';
 
 function _hideGame(context, ga, storeuri) {
     var hit = 0;

@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         SG Block Giveaway Button
 // @namespace    com.parallelbits
-// @version      1.05
+// @version      1.07
 // @description  Add a Button to Giveawaypage to block the game
 // @author       Daerphen
-// @match        http://www.steamgifts.com/giveaway/*
+// @match        *://www.steamgifts.com/giveaway/*
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
@@ -37,7 +37,7 @@ function _addButton() {
             $('#unhide-game').addClass('is-hidden');
         }
         $('#hide-game').on('click', function() {
-            let sink = 'http://www.steamgifts.com/';
+            let sink = 'https://www.steamgifts.com/ajax.php';
             let data = {
                 "xsrf_token": XSRF,
                 "do": "hide_giveaways_by_game_id",
@@ -52,7 +52,7 @@ function _addButton() {
             });
         });
         $('#unhide-game').on('click', function() {
-            let sink = 'http://www.steamgifts.com/ajax.php';
+            let sink = 'https://www.steamgifts.com/ajax.php';
             let data = {
                 "xsrf_token": XSRF,
                 "do": "remove_filter",
@@ -135,7 +135,7 @@ $.ajaxSetup({
 
 
 
-let gameFetchURL = 'http://www.steamgifts.com/ajax.php';
+let gameFetchURL = 'https://www.steamgifts.com/ajax.php';
 let searchData = {
     'do': 'autocomplete_game',
     'search_query': game_name.replace(/ /g, '+'),
@@ -147,7 +147,7 @@ $.ajax(gameFetchURL, {
     data: searchData
 }).done(function(context) {
     _setGameId(context);
-    let popupURL = 'http://www.steamgifts.com';
+    let popupURL = 'https://www.steamgifts.com';
     $.ajax(popupURL, {
         async: true
     }).done(function(context) {
@@ -155,7 +155,7 @@ $.ajax(gameFetchURL, {
     });
 });
 
-let statusURL = 'http://www.steamgifts.com/account/settings/giveaways/filters/search?q=' + game_name.replace(/ /g, '+');
+let statusURL = 'https://www.steamgifts.com/account/settings/giveaways/filters/search?q=' + game_name.replace(/ /g, '+');
 $.ajax(statusURL).done(function(context) {
     _setStatus(context);
 });

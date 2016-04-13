@@ -4,7 +4,7 @@
 // @version      1.02
 // @description  Shows group list in front page
 // @author       Daerphen
-// @match        http://www.steamgifts.com/*
+// @match        *://www.steamgifts.com/*
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
@@ -35,7 +35,7 @@ $('div.giveaway__row-outer-wrap').each(function(i, value) {
     let groupLink = $(value).find('a.giveaway__column--group');
     if(groupLink.attr("href")) {
         let baseURI = groupLink.attr("href");
-        let groupURI = 'http://www.steamgifts.com' + baseURI;
+        let groupURI = 'https://www.steamgifts.com' + baseURI;
         $.ajax(groupURI, {
             async: true
         }).done(function(context){
