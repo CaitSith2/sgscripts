@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Block Giveaway Button
 // @namespace    com.parallelbits
-// @version      1.08
+// @version      1.09
 // @description  Add a Button to Giveawaypage to block the game
 // @author       Daerphen
 // @match        *://www.steamgifts.com/giveaway/*
