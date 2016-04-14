@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         SG Grouppage Blocker
 // @namespace    com.parallelbits
-// @version      1.05
+// @version      1.06
 // @description  Remove games from group page you already have or you blocked
 // @author       Daerphen
-// @match        http://www.steamgifts.com/group/*
+// @match        *://www.steamgifts.com/group/*
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
