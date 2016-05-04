@@ -2,7 +2,7 @@
 // @name        SG Augmented Gamelist
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
-// @include     *://www.steamgifts.com/*
+// @match     *://www.steamgifts.com/*
 // @version     1.20
 // @grant       none
 // ==/UserScript==
