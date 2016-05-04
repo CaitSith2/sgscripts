@@ -3,12 +3,12 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @include     http://www.steamgifts.com/*
-// @version     1.14
+// @version     1.15
 // @grant       none
 // ==/UserScript==
 'use strict';
 
-var PROXY_URL = 'http://proxy.parallel-bits.com/proxy';
+var PROXY_URL = 'https://proxy-parallel-bits.rhcloud.com/proxy';
 let popup = $('<div class="gameinfo">');
 $('body').append(popup);
 
