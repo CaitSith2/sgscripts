@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG GroupIdentifier
 // @namespace    com.parallelbits
-// @version      1.03
+// @version      1.04
 // @description  Shows group list in front page
 // @author       Daerphen
 // @match        *://www.steamgifts.com/*
@@ -13,9 +13,14 @@
 let limit = 8;
 
 function _showGroups(context, item) {
+	let hide = false;
     let names = [];
     $(context).find('a.table__column__heading').each(function(i, g) {
         names.push({"link": $(g).attr('href'), "name": $(g).text()});
+		if(isCached(_getKeyFromURI($(g).attr('href')))) {
+			console.log($(g).text());
+			hide = true;
+		}
     });
     let res = '';
 	let i = 1;
@@ -28,7 +33,9 @@ function _showGroups(context, item) {
         i++;
     });
     $(item).append('<div class="giveaway__row-inner-wrap"><div class="giveaway__summary"><div class="giveaway__columns">'+res+'</div></div></div>');
-    
+    if(hide) {
+    	$(item).hide();
+    }
 }
 
 $('div.giveaway__row-outer-wrap').each(function(i, value) {
@@ -43,3 +50,35 @@ $('div.giveaway__row-outer-wrap').each(function(i, value) {
         });
     }
 });
+
+function _getKeyFromURI(uri) {
+    let reg = /group\/([0-9a-zA-Z]+)\/.*/g;
+    let data = reg.exec(uri);
+    let key = data[1];
+    return key;
+}
+
+initializeCache();
+
+function initializeCache() {
+    if(localStorage.getItem('group_cache') === null) {
+        localStorage.setItem('group_cache',JSON.stringify({}));
+    }
+}
+
+function cache(key, val) {
+    if(typeof val === 'undefined' || val === null) {
+        return JSON.parse(localStorage.getItem('group_cache'))[key];
+    }
+    let json = JSON.parse(localStorage.getItem('group_cache'));
+    json[key] = val;
+    localStorage.setItem('group_cache', JSON.stringify(json));
+}
+
+function isCached(key) {
+    if(localStorage.getItem('group_cache') !== null) {
+		let json = JSON.parse(localStorage.getItem('group_cache'));
+        return json[key] !== null && typeof json[key] !== 'undefined';
+    }
+    return false;
+}
