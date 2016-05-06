@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Adds genre tags to game list
 // @match     *://www.steamgifts.com/*
-// @version     1.22
+// @version     1.23
 // @grant       none
 // ==/UserScript==
 'use strict';
@@ -105,6 +105,7 @@ function _createContent(block, key, limit) {
     block.append('<span class="label infotext">User Tags:</span>');
     let data = cache(key);
     if(data !== null) {
+		console.log(data);
         if(data.tags) {
             data.tags.forEach(function(value, index) {
                 if(index < limit) {
@@ -134,6 +135,12 @@ function _createContent(block, key, limit) {
             block.append('<br/><span class="label infotext">Metacritic:</span>');
             block.append('<span class="rating infotext">' + data.metacritic + '</span>');
         }
+		
+		if(data.rating_recent !== null && typeof data.rating_recent !== 'undefined') {
+			
+			block.append('<br/><span class="label infotext">Rating:</span>');
+			block.append('<span class="rating infotext"><img src="' + data.rating_recent.status + '"/> ' + data.rating_recent.ratio + '%');
+		}
     }
 }
 
