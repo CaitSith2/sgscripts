@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Block Giveaway Button
 // @namespace    com.parallelbits
-// @version      1.09
+// @version      1.10
 // @description  Add a Button to Giveawaypage to block the game
 // @author       Daerphen
 // @match        *://www.steamgifts.com/giveaway/*
@@ -79,7 +79,7 @@ function _updateButton() {
         buttonText = buttonText.replace(/Enter Giveaway/g, 'Giveaway blocked');
         let enterButton = $('div.sidebar__entry-insert');
         if(enterButton.length) {
-            enterButton.removeClass('sidebar__entry-insert').addClass('sidebar__error');
+            enterButton.addClass('sidebar__error');
             enterButton.html(buttonText);
         }
     } else {
@@ -87,7 +87,7 @@ function _updateButton() {
         $('#unhide-game').addClass('is-hidden');
         let enterButton = $('div.sidebar__error');
         if(enterButton.length) {
-            enterButton.removeClass('sidebar__error').addClass('sidebar__entry-insert');
+            enterButton.removeClass('sidebar__error');
             enterButton.html(buttonText);
         }
     }
