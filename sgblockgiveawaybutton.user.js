@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Block Giveaway Button
 // @namespace    com.parallelbits
-// @version      1.10
+// @version      1.11
 // @description  Add a Button to Giveawaypage to block the game
 // @author       Daerphen
 // @match        *://www.steamgifts.com/giveaway/*
@@ -36,6 +36,7 @@ function _addButton() {
         } else {
             $('#unhide-game').addClass('is-hidden');
         }
+		_updateButton();
         $('#hide-game').on('click', function() {
             let sink = 'https://www.steamgifts.com/ajax.php';
             let data = {
