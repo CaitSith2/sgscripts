@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG GroupIdentifier
 // @namespace    com.parallelbits
-// @version      1.04
+// @version      1.10
 // @description  Shows group list in front page
 // @author       Daerphen
 // @match        *://www.steamgifts.com/*
@@ -16,7 +16,7 @@ function _showGroups(context, item) {
 	let hide = false;
     let names = [];
     $(context).find('a.table__column__heading').each(function(i, g) {
-        names.push({"link": $(g).attr('href'), "name": $(g).text()});
+        names.push({"link": $(g).attr('href'), "name": htmlEncode($(g).text())});
 		if(isCached(_getKeyFromURI($(g).attr('href')))) {
 			console.log($(g).text());
 			hide = true;
@@ -81,4 +81,8 @@ function isCached(key) {
         return json[key] !== null && typeof json[key] !== 'undefined';
     }
     return false;
+}
+
+function htmlEncode(value) {
+    return $('<div/>').text(value).html();
 }
