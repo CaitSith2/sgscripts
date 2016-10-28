@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SteamTrade Profile Button
 // @namespace    http://www.parallel-bits.de
-// @version      0.1
+// @version      0.2
 // @description  Adds a button to SG Profiles to link to their SteamTrade Profile
 // @author       Daerphen
 // @match        *://www.steamgifts.com/user/*
