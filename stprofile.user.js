@@ -12,7 +12,7 @@
     'use strict';
 
     var buttonList = $('div.sidebar__shortcut-inner-wrap');
-    var steamButton = buttonList.children().last();
+    var steamButton = buttonList.children('a[href*="steamcommunity.com"]');
     var tradeButton = steamButton.clone();
     tradeButton.html('<i class="fa fa-fw"><img src="https://cdn.steamtrades.com/img/favicon.ico"/></i>');
     var href = tradeButton.attr('href');
