@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Marks Bundlegames when you create a giveaway
 // @include     *://www.steamgifts.com/giveaways/new
-// @version     1.02
+// @version     1.03
 // @grant       none
 // ==/UserScript==
 
