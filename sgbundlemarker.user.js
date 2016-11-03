@@ -3,7 +3,7 @@
 // @namespace   com.parallelbits
 // @description Marks Bundlegames when you create a giveaway
 // @include     *://www.steamgifts.com/giveaways/new
-// @version     1.01
+// @version     1.02
 // @grant       none
 // ==/UserScript==
 
@@ -34,6 +34,13 @@ function _addMarkers() {
         let item = $(this);
         let name = $(value).attr('data-autocomplete-name');
         let uri = $(value).find('.table__column__secondary-link').attr('href');
+		let uriData = /http:\/\/store.steampowered.com\/(app|sub)\/([0-9]+)\/?/g.exec(uri);
+		if(uriData[1] === 'app') {
+			$.ajax('https://proxy-parallelbits.rhcloud.com/proxy?uri=app/' + uriData[2]).done(function(context) {
+				let price = Math.round(context.price/100);
+				item.find('.global__image-outer-wrap').parent().parent().append('<div><span style="color: black; background-color: #adf7b7; border-radius: 5px; padding: 2px">'+price+'P</span></div>');
+			});
+		}
         let ajaxURI = BUNDLE_LIST + name.replace(/ /g, '+');
         $.ajax(ajaxURI).done(function(context) {
             let hit = 0;
@@ -43,7 +50,7 @@ function _addMarkers() {
                 }
             });
             if(hit > 0) {
-                item.find('.global__image-outer-wrap').parent().before('<div>*</div>');
+				item.find('.global__image-outer-wrap').parent().parent().append('<div><span style="color: black; background-color: #adc9f7; border-radius: 5px; padding: 2px">bundled</span></div>');
                 if(unlockTimer !== null) {
                     clearTimeout(unlockTimer);
                     unlockTimer = null;
