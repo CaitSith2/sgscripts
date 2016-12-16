@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ELEG Birthday Giveaway Helper
 // @namespace    http://www.parallel-bits.de
-// @version      1.1
+// @version      1.2
 // @description  Small Helper for ELEG Birthday Event 2016. Sets Region, Groups, Start and End Date
 // @author       Daerphen
 // @match        https://www.steamgifts.com/giveaways/new
@@ -74,7 +74,7 @@
 			ending_day = 28;
 		}
         var start = maxDate(new Date(), new Date('01/01/2017 08:00:00 UTC'));
-		var end = new Date('01/30/2017 18:00:00 UTC');
+		var end = new Date('01/23/2017 18:00:00 UTC');
 		insertDates(start, end);
 		setRegionRestriction();
 		setGroups(''+group);
