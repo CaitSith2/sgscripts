@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ELEG Birthday Giveaway Helper
 // @namespace    http://www.parallel-bits.de
-// @version      1.0
+// @version      1.1
 // @description  Small Helper for ELEG Birthday Event 2016. Sets Region, Groups, Start and End Date
 // @author       Daerphen
 // @match        https://www.steamgifts.com/giveaways/new
