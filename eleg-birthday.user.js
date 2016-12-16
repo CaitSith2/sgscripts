@@ -33,9 +33,7 @@
                 performAction(g.id);
             });
             $('#autofill-row').append(button);
-        } else {
-            console.log('not a group member');
-        }
+        } 
     }
 	function insertDates(start, end) {
 		$('input[name="start_time"]').val(formatDate(start));
@@ -56,10 +54,8 @@
 		$('div[data-checkbox-value="0"]').trigger('click');
 	}
 	function setGroups(group) {
-		console.log(group);
 		$('div[data-checkbox-value="groups"]').trigger('click');
         var groupSelectioButton = $('div[data-group-id="' + group + '"]');
-		console.log(groupSelectioButton);
 		if(!groupSelectioButton.hasClass('is-selected')) {
 			//groupSelectioButton.trigger('click');
 			$("div[data-group-id='" + group + "']").children('div').eq(1).trigger("click");
