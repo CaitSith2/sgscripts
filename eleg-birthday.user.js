@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ELEG Birthday Giveaway Helper
 // @namespace    http://www.parallel-bits.de
-// @version      1.2
+// @version      1.3
 // @description  Small Helper for ELEG Birthday Event 2016. Sets Region, Groups, Start and End Date
 // @author       Daerphen
 // @match        https://www.steamgifts.com/giveaways/new
@@ -26,14 +26,16 @@
         $('.form__row--giveaway-keys').after('<div class="form__row"><div class="form__heading"><div class="form__heading__number"></div><div class="form__heading__text">Autofill</div></div><div class="form__row__indent" id="autofill-row"></div></div>');
     }
     for(var g of groups) {
-        if(isMemberOf(g.id)) {
-            // is member of
-            var button = $('<div id="b'+g.id+'" class="form__submit-button js__submit-form"><i class="fa fa-arrow-circle-right"></i>'+g.name+'</div>');
-            button.click(function() {
-                performAction(g.id);
-            });
-            $('#autofill-row').append(button);
-        } 
+		(function(group) {
+			if(isMemberOf(group.id)) {
+				// is member of
+				var button = $('<div id="b'+group.id+'" class="form__submit-button js__submit-form"><i class="fa fa-arrow-circle-right"></i>'+group.name+'</div>');
+				button.click(function() {
+					performAction(group);
+				});
+				$('#autofill-row').append(button);
+			}
+		})(g);
     }
 	function insertDates(start, end) {
 		$('input[name="start_time"]').val(formatDate(start));
@@ -55,29 +57,20 @@
 	}
 	function setGroups(group) {
 		$('div[data-checkbox-value="groups"]').trigger('click');
-        var groupSelectioButton = $('div[data-group-id="' + group + '"]');
-		if(!groupSelectioButton.hasClass('is-selected')) {
-			//groupSelectioButton.trigger('click');
-			$("div[data-group-id='" + group + "']").children('div').eq(1).trigger("click");
+        var groupSelectionButton = $('div[data-group-id="' + group.id + '"]');
+		if(!groupSelectionButton.hasClass('is-selected')) {
+			groupSelectionButton.trigger('click');
 		}
 	}
 	function setDescription() {
 		$('textarea[name="description"]').val(description);
 	}
 	function performAction(group) {
-		var starting_day = 20;
-		var ending_day = 30;
-		var current_date = new Date();
-		var current_month = current_date.getMonth();
-		var current_year = current_date.getYear();
-		if(current_month == 1) {
-			ending_day = 28;
-		}
         var start = maxDate(new Date(), new Date('01/01/2017 08:00:00 UTC'));
 		var end = new Date('01/23/2017 18:00:00 UTC');
 		insertDates(start, end);
 		setRegionRestriction();
-		setGroups(''+group);
+		setGroups(group);
 		setDescription();
 	}
     function isMemberOf(groupId) {
@@ -99,3 +92,4 @@
     }
 })();
  
+
