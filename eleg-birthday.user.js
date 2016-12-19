@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ELEG Birthday Giveaway Helper
 // @namespace    http://www.parallel-bits.de
-// @version      1.3
+// @version      1.4
 // @description  Small Helper for ELEG Birthday Event 2016. Sets Region, Groups, Start and End Date
 // @author       Daerphen
 // @match        https://www.steamgifts.com/giveaways/new
@@ -13,14 +13,14 @@
     var groups = [
         {
             id: '591009548',
-            name: 'ELEG Birthday (Group A)'
+            name: 'ELEG Team A'
         },{
             id: '591009547',
-            name: 'ELEG Birthday (Group B)'
+            name: 'ELEG Team B'
         }
     ];
 
-    var description = '##Everybody Love Everybody 4th Birthday Event  \n\n----------------  \n\nIf you enter our giveaways please [bump the thread](...)  \n\n--------------------  \n\nIf you are interested in joining ELE, please check out our rules and thread - [group thread](https://www.steamgifts.com/discussion/2gTRA/e) ';
+    var description = '##Everybody Love Everybody 4th Birthday Event  \n\n----------------  \n\nIf you enter our giveaways please [bump the thread](https://www.steamgifts.com/discussion/mH3M9/everybody-love-everybody-4th-birthday-event)  \n\n--------------------  \n\nIf you are interested in joining ELE, please check out our rules and thread - [group thread](https://www.steamgifts.com/discussion/2gTRA/e) ';
 	var buttonRow = $('#autofill-row');
     if(!$('#autofill-row').length) {
         $('.form__row--giveaway-keys').after('<div class="form__row"><div class="form__heading"><div class="form__heading__number"></div><div class="form__heading__text">Autofill</div></div><div class="form__row__indent" id="autofill-row"></div></div>');
