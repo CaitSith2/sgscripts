@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AKATSUKI Giveaway Helper
 // @namespace    http://www.parallel-bits.de
-// @version      0.1
+// @version      0.2
 // @description  Helps to create monthly giveaways for AKATSUKI. Set group, start and end date and standard description
 // @author       Daerphen
 // @match        https://www.steamgifts.com/giveaways/new
