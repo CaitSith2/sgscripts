@@ -52,6 +52,13 @@
 		var current_date = new Date();
 		var current_month = current_date.getMonth();
 		var current_year = current_date.getYear();
+		if(current_date >= 28) {
+			if(current_month == 11) {
+				current_year += 1;
+			}
+			current_month += 1;
+			current_month %= 12;
+		}
 		if(current_month == 1) {
 			ending_day = 28;
 		}
