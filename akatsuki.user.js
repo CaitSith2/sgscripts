@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AKATSUKI Giveaway Helper
 // @namespace    http://www.parallel-bits.de
-// @version      0.2
+// @version      0.3
 // @description  Helps to create monthly giveaways for AKATSUKI. Set group, start and end date and standard description
 // @author       Daerphen
 // @match        https://www.steamgifts.com/giveaways/new
@@ -50,9 +50,10 @@
 		var starting_day = 20;
 		var ending_day = 30;
 		var current_date = new Date();
+		var current_day = current_date.getDate();
 		var current_month = current_date.getMonth();
 		var current_year = current_date.getYear();
-		if(current_date >= 28) {
+		if(current_day >= 28) {
 			if(current_month == 11) {
 				current_year += 1;
 			}
