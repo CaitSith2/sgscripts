@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SG Grouppage Blocker
 // @namespace    com.parallelbits
-// @version      1.07
+// @version      1.08
 // @description  Remove games from group page you already have or you blocked
 // @author       Daerphen
 // @match        *://www.steamgifts.com/group/*
@@ -32,7 +32,7 @@ _hide(group);
 
 var lastLink = $('.sidebar__navigation').last();
 var buttonText = null!==group&&group.hideGiveaways?"unhide giveaways":"hide giveaways";
-var toogleButton = $('<h3 class="sidebar__heading">Scripted Tools</h3><ul class="sidebar__navigation"><li class="sidebar__navigation__item"><a class="sidebar__navigation__item__link"><div class="sidebar__navigation__item__name" id="hideButtonText">'+buttonText+'</div><div class="sidebar__navigation__item__underline"></div></a></li></ul>');
+var toogleButton = $('<h3 class="sidebar__heading">Scripted Tools</h3><ul class="sidebar__navigation"><li class="sidebar__navigation__item"><a class="sidebar__navigation__item__link" style="cursor:pointer;"><div class="sidebar__navigation__item__name" id="hideButtonText"><i class="fa fa-eye-slash"></i> '+buttonText+'</div><div class="sidebar__navigation__item__underline"></div></a></li></ul>');
 lastLink.after(toogleButton);
 toogleButton.click(function(event) {
 	group.hideGiveaways = !group.hideGiveaways;
