@@ -14,6 +14,7 @@ let limit = 8;
 
 function _showGroups(context, item) {
 	let hide = false;
+    let Path = window.location.pathname;
     let names = [];
     $(context).find('a.table__column__heading').each(function(i, g) {
         names.push({"link": $(g).attr('href'), "name": htmlEncode($(g).text())});
@@ -33,6 +34,10 @@ function _showGroups(context, item) {
         i++;
     });
     $(item).append('<div class="giveaway__row-inner-wrap"><div class="giveaway__summary"><div class="giveaway__columns">'+res+'</div></div></div>');
+    
+	//When you are on your own user page, or on the specific group page, don't hide the giveaway.
+    if(Path.match(/^\/user\//)) hide = false;
+    if(Path.match(/^\/group\//)) hide = false;
     if(hide) {
     	$(item).hide();
     }
